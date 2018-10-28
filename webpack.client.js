@@ -1,41 +1,39 @@
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackObfuscator = require('webpack-obfuscator')
 const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = (env, argv) => {
   let plugins = [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist/client']),
     new HtmlWebpackPlugin({
-      'title': 'Hoge',
-      filename: 'client/client.html',
+      filename: 'index.html',
+      template: './src/client/index.html'
     }),
     new VueLoaderPlugin()
   ]
   if (argv.mode === 'production') {
     const obfuscator = new WebpackObfuscator({
-      rotateUnicodeArray: true
+      rotateUnicodeArray: false
     })
     plugins.push(obfuscator)
   }
   return {
-    target: 'node',
-    node: {
-      __dirname: false,
-      __filename: false,
-    },
     entry: {
-      'main': './src/main.js',
-      'client/client': './src/client/client.js'
+      'client': './src/client/client.js'
     },
     output: {
       filename: '[name].js',
-      path: path.resolve(__dirname, 'dist')
+      path: path.resolve(__dirname, 'dist/client')
     },
     plugins: plugins,
     module: {
       rules: [
+        {
+          test: /\.html$/,
+          loader: 'html-loader'
+        },
         {
           test: /\.vue$/,
           loader: 'vue-loader'

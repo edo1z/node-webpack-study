@@ -1,4 +1,5 @@
-const app = require('express')()
+const express = require('express')
+const app = express()
 const main = require('http').Server(app)
 const calc = require('./calc')
 
@@ -12,11 +13,7 @@ const start = () => {
   }
 }
 const route = (app) => {
-  const path = require('path');
-  app.get('/', function(req, res){
-    const filePath = path.join(__dirname, '/client/client.html')
-    res.sendFile(filePath)
-  });
+  app.use('/', express.static(__dirname + '/client'))
 }
 const stop = () => {
   if (serverStatus) {

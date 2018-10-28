@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev" : "webpack --mode development --watch",
-    "build": "webpack --mode production"
+    "dev-server": "webpack --mode development --config webpack.server.js --watch",
+    "dev-client": "webpack --mode development --config webpack.client.js --watch",
+    "build-server": "webpack --mode production --config webpack.server.js",
+    "build-client": "webpack --mode production --config webpack.client.js",
+    "build": "npm-run-all build-server build-client"
   },
   "devDependencies": {
     "autoprefixer": "^9.2.0",
@@ -14,7 +17,10 @@
     "css-loader": "^1.0.0",
     "electron": "^3.0.4",
     "gulp": "^3.9.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-exclude-assets-plugin": "^0.0.7",
     "html-webpack-plugin": "^3.2.0",
+    "npm-run-all": "^4.1.3",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
