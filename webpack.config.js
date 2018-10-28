@@ -7,11 +7,11 @@ const { VueLoaderPlugin } = require('vue-loader')
 module.exports = (env, argv) => {
   let plugins = [
     new CleanWebpackPlugin(['dist']),
-    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      'title': 'Logifx',
+      'title': 'Hoge',
       filename: 'client/client.html',
-    })
+    }),
+    new VueLoaderPlugin()
   ]
   if (argv.mode === 'production') {
     const obfuscator = new WebpackObfuscator({
